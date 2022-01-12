@@ -1,0 +1,15 @@
+import * as actions from './actionTypes'
+
+export function taskComplete(id) {
+	return {
+		type: actions.taskUpdate,
+		payload: { id, completed: true },
+	}
+}
+
+export function titleChange(id) {
+	return {
+		type: actions.taskUpdate,
+		payload: { id, title: `New task for ${id}` },
+	}
+}

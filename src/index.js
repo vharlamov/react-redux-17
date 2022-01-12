@@ -1,35 +1,25 @@
 import React, { useEffect, useState } from 'react'
 import ReactDOM from 'react-dom'
-import * as actions from './store/actionTypes'
+import { taskComplete, titleChange } from './store/actions'
 import { initiateStore } from './store/store'
 
+const store = initiateStore()
+
 const App = (params) => {
-	const store = initiateStore()
-	console.log(store)
 	const [state, setState] = useState(store.getState())
 
 	useEffect(() => {
 		store.subscribe(() => {
 			setState(store.getState())
 		})
-		console.log('subscribe')
-		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 
 	const completeTask = (taskId) => {
-		store.dispatch({
-			type: actions.taskUpdate,
-			payload: { id: taskId, completed: true },
-		})
-		console.log(state)
+		store.dispatch(taskComplete(taskId))
 	}
 
 	const changeTitle = (taskId) => {
-		store.dispatch({
-			type: actions.taskUpdate,
-			payload: { id: taskId, title: `New task for ${taskId}` },
-		})
-		console.log(state)
+		store.dispatch(titleChange(taskId))
 	}
 
 	return (
